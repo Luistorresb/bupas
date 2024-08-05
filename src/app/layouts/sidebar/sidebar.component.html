@@ -1,0 +1,67 @@
+<!-- ========== Left Sidebar Start ========== -->
+
+<ng-template #contentTemplate>
+  <!--- Sidemenu -->
+  <div id="sidebar-menu">
+    <!-- Left Menu Start -->
+    <ul class="metismenu list-unstyled" id="side-menu" #sideMenu>
+      <!-- {{menuItems}} -->
+      <ng-container *ngFor="let item of menuItems">
+        <li class="menu-title" *ngIf="item.isTitle">{{ item.label }}</li>
+        <!-- <span
+          style="margin-left: 30px;
+          color: #a5a5a5;"
+          >{{ item.badge }}</span
+        > -->
+        <li *ngIf="!item.isTitle && !item.isLayout">
+          <a
+            *ngIf="hasItems(item)"
+            href="javascript:void(0);"
+            class="is-parent"
+            [ngClass]="{ 'has-arrow': !item.badge, 'has-dropdown': item.badge }"
+          >
+            <i class="bx {{ item.icon }}" *ngIf="item.icon"></i>
+            <span> {{ item.label }}</span>
+            <span
+              class="badge rounded-pill float-end bg-{{ item.badge.variant }}"
+              *ngIf="item.badge"
+              >{{ item.badge.text }}</span
+            >
+          </a>
+
+          <ul
+            class="sub-menu"
+            *ngIf="item.subItems && item.subItems.length > 0"
+          >
+            <li *ngFor="let subItem of item.subItems">
+              <a
+                [routerLink]="[subItem.link]"
+                class="side-nav-link-ref"
+                *ngIf="!subItem.isLayout"
+                >{{ subItem.label }}</a
+              >
+            </li>
+          </ul>
+        </li>
+        <li *ngIf="!hasItems(item)">
+          <a [routerLink]="[item.link]" class="waves-effect side-nav-link-ref">
+            <i class="bx {{ item.icon }}" *ngIf="item.icon"></i>
+            <span> {{ item.label }}</span>
+          </a>
+        </li>
+      </ng-container>
+    </ul>
+  </div>
+  <!-- Sidebar -->
+</ng-template>
+
+<div class="vertical-menu">
+  <div data-simplebar class="h-100" #componentRef>
+    <ng-container
+      *ngIf="menuItems && menuItems.length > 0; else contentTemplate"
+    >
+      <ng-template [ngTemplateOutlet]="contentTemplate"></ng-template>
+    </ng-container>
+  </div>
+</div>
+<!-- Left Sidebar End -->

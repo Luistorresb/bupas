@@ -1,0 +1,53 @@
+import { inject, NgModule } from '@angular/core';
+import { CanActivateFn, RouterModule, Routes } from '@angular/router';
+import { MainComponent } from './main.component';
+import { environment } from 'src/environments/environment';
+import { RoleGuard } from 'src/app/core/guards/role.guard';
+
+const app_name: string = environment.app_name;
+
+const canAccess: CanActivateFn = (route, state) => {
+  const roleGuard = inject(RoleGuard);
+  const expectedRoles = route.data?.['expectedRoles'];
+  return roleGuard.canAccess(expectedRoles);
+};
+
+const routes: Routes = [
+	{
+		path: 'main',
+		component: MainComponent,
+		children: [
+      {
+        path: 'dashboard',
+        title: `${app_name}® - Dashboard`,
+        loadChildren: () =>
+					import('./../../modules/dashboard/dashboard.module').then(
+						({ DashboardModule }) => DashboardModule,
+				),
+        //canActivate: [canAccess],
+        // data: {
+        //   expectedRoles: ['portalcli_client', 'none'],
+        // },
+      },
+      {
+        path: '',
+        title: `${app_name}® - Security`,
+        loadChildren: () =>
+					import('./../../modules/security/security.module').then(
+						({ SecurityModule }) => SecurityModule,
+				),
+        //canActivate: [canAccess],
+        // data: {
+        //   expectedRoles: ['portalcli_client', 'none'],
+        // },
+      },
+
+		],
+	},
+];
+
+@NgModule({
+	imports: [RouterModule.forChild(routes)],
+	exports: [RouterModule],
+})
+export class MainRoutingModule {}

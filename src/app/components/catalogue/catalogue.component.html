@@ -1,0 +1,131 @@
+<div class="container">
+  <div class="page-header">
+    <div class="d-flex flex-column">
+      <h3 class="primary title noselect">Parametrización - {{keyspanish}}</h3>
+      <p class="secundary">Configuración de {{keyspanish}} </p>
+    </div>
+    <div class="d-flex flex-rows gap-10">
+      <button type="button" class="btn btn-primary" (click)="addItem()">Agregar {{keyspanish}}</button>
+      <button type="button" class="btn btn-primary" (click)="backToList()">Regresar</button>
+    </div>
+  </div>
+
+  <div class="page-body">
+    <div class="col-md-12">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card card-stats">
+                    <div class="card-body">
+                        <div class="table-responsive" style="min-height: 30vh;">
+                            <table class="table tdashboard bordered">
+                                <thead class="table-dark">
+                                    <tr>
+                                        <th class="text-left"> Nombre</th>
+                                        <th class="text-left"> Descripción </th>
+                                        <th class="text-center"> Creación </th>
+                                        <th class="text-center"> Estado </th>
+                                        <th class="text-center"> </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let item of list" style="font-size: smaller;">
+                                        <td class="text-left"> {{item.label}} </td>
+                                        <td class="text-left"> {{item.description}} </td>
+                                        <td class="text-center"> {{item.createdOn | date:'EEEE dd MMM yyyy'}} </td>
+                                        <td class="text-center">
+                                            <h5 *ngIf="item.status == true" style="color: white;"><span class="badge bg-success">Activo</span></h5>
+                                            <h5 *ngIf="item.status == false" style="color: white;"><span class="badge bg-danger">Inactivo</span></h5>
+                                        </td>
+                                        <td class="text-center">
+                                            <a class="" aria-expanded="true" aria-haspopup="true" data-toggle="dropdown" href="javascript:void(0)" id="navbarDropdownMenuLink" style="padding-top: 3px; height: 37px; color: #fbde44;">
+                                                <i class="material-icons">more_horiz</i>
+                                            </a>
+                                            <div aria-labelledby="navbarDropdownMenuLink" class="dropdown-menu dropdown-menu-right">
+                                                <a class="dropdown-item primary noselect option" href="javascript:void(0)" (click)="editItem(item)">EDITAR</a>
+                                                <a class="dropdown-item primary noselect option" href="javascript:void(0)" *ngIf="item.status == false" (click)="changeStatus(item.value,'activado')">ACTIVAR</a>
+                                                <a class="dropdown-item primary noselect option" href="javascript:void(0)" *ngIf="item.status == true" (click)="changeStatus(item.value,'desactivado')">INACTIVAR</a>
+                                                <a class="dropdown-item primary noselect option" href="javascript:void(0)" (click)="removeItem(item.value)">ELIMINAR</a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modallist" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title pricolor" id="modal-title-notification">Gestión de {{keyspanish}}</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                </div>
+                <div class="modal-body">
+                    <h6 style="text-transform: none; font-weight: 300;">A través de esta funcionalidad podrá realizar el proceso de creación/actualización de {{keyspanish}}. Diligenciar la información y seleccionar la opción Guardar.</h6>
+                    <div class="col-md-12">
+                        <form>
+                            <div class="row">
+                                <div class="col-md-6 text-left" *ngIf="parent != null">
+                                    <label for="basic-url" class="pricolor">{{parentspanish}}</label>
+                                    <div class="input-group mb-3">
+                                        <select class="form-control" name="parent" [(ngModel)]="item.parentId" required [disabled]="activeselect">
+                                            <option value="" selected>Seleccionar {{parentspanish}}</option>
+                                            <option *ngFor="let opt of listParentRes" value="{{opt.value}}">{{opt.label}}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="" class="pricolor">Nombre</label>
+                                    <input type="text" class="form-control" placeholder="Nombre" name="names" [(ngModel)]="item.name" autocomplete="off" required>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <label for="" class="pricolor">Descripción</label>
+                                    <textarea type="textarea" class="form-control" placeholder="Descripción" name="describe" autocomplete="off" [(ngModel)]="item.description"></textarea>
+                                </div>
+                            </div>
+                            <div class="row text-center mt-5">
+                                <div class="col-md-12">
+                                    <button class="btn btn-secundary pb-2 pt-2 pl-3 pr-3" data-dismiss="modal" aria-label="Close"> Cancelar </button>
+                                    <button class="btn btn-save pb-2 pt-2 pl-3 pr-3" *ngIf="viewoptions == true" (click)="save()"> Guardar </button>
+                                    <button class="btn btn-save pb-2 pt-2 pl-3 pr-3" *ngIf="viewoptions == false " (click)="update()"> Actualizar </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modalconfirm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="col-md-12 text-center pb5">
+                        <button type="button" class="close closem" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                        <i class="material-icons noselect" style="color: #ff5200; font-size: xxx-large;">delete</i>
+                    </div>
+                    <div class="col-md-12 mt-4">
+                        <div class="row">
+                            <div class="col-md-12 text-center">
+                                <h6><strong>¿Esta seguro que desea eliminar este item?</strong></h6>
+                                <p><small>Esta acción no se podra deshacer</small></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12 text-center">
+                        <button class="btn btn-secundary pb-2 pt-2 pl-3 pr-3" data-dismiss="modal" aria-label="Close"> Cancelar </button>
+                        <button class="btn btn-save pb-2 pt-2 pl-3 pr-3" (click)="delete()"> Confirmar </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  </div>
+</div>
