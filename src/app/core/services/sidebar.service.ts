@@ -25,16 +25,61 @@ export class SidebarService {
       icon: 'fa-solid fa-lock',
       subItems: [
         {
-          id: 21,
+          id: 1,
           label: 'Roles',
           link: 'roles',
           parentId: 2,
         },
         {
-          id: 22,
+          id: 2,
           label: 'Usuarios',
           link: 'users',
           parentId: 2,
+        },
+        {
+          id: 3,
+          label: 'Bitacora',
+          link: 'request',
+          parentId: 2,
+        },
+      ],
+    },
+     {
+      id: 3,
+      label: 'Procesos',
+      badge: 'Módulos',
+      icon: 'fa-solid fa-lock',
+      subItems: [
+        {
+          id: 1,
+          label: 'Clientes',
+          link: 'customers',
+          parentId: 3,
+        },
+    
+        {
+          id: 2,
+          label: 'Sedes de Acopio',
+          link: 'collection',
+          parentId: 3,
+        },
+        {
+          id: 3,
+          label: 'Producto',
+          link: 'product',
+          parentId: 3,
+        },
+        {
+          id: 4,
+          label: 'Transportador',
+          link: 'conveyor',
+          parentId: 3,
+        },
+        {
+          id: 5,
+          label: 'Asesor',
+          link: 'adviser',
+          parentId: 3,
         },
       ],
     },

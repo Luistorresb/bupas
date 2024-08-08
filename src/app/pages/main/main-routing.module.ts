@@ -42,6 +42,19 @@ const routes: Routes = [
         // },
       },
 
+      {
+        path: '',
+        title: `${app_name}® - Proceso`,
+        loadChildren: () =>
+					import('./../../modules/process/process.module').then(
+						({ ProcessModule }) => ProcessModule,
+				),
+        //canActivate: [canAccess],
+        // data: {
+        //   expectedRoles: ['portalcli_client', 'none'],
+        // },
+      },
+
 		],
 	},
 ];

@@ -14,15 +14,16 @@ import {
   NgbTooltipModule,
 } from '@ng-bootstrap/ng-bootstrap';
 import { MainComponent } from './main.component';
-import { LandingComponent } from '../landing/landing.component';
+// import { LandingComponent } from '../landing/landing.component';
 import { LayoutsModule } from 'src/app/layouts/layouts.module';
 import { MainRoutingModule } from './main-routing.module';
+import { HttpClient } from '@angular/common/http';
 
 
 @NgModule({
   declarations: [
     MainComponent,
-    LandingComponent
+    // LandingComponent
   ],
   imports: [
     LayoutsModule,

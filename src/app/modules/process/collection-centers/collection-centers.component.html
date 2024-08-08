@@ -1,0 +1,217 @@
+<div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header pt-3 pb-3 d-flex justify-content-between">
+            <span class="card-title"><b>Centros de Acopio</b></span>
+            <button
+              class="btn btn-sm btn-primary"
+              (click)="toggleCreateUserForm()"
+            >
+              <i
+                class="fas"
+        
+              ></i>
+              Crear
+            </button>
+          </div>
+          <div class="card-body h-table">
+            <div class="col-md-12 d-flex justify-content-end w-100">
+              <form>
+                <div class="input-group">
+                  <input
+                    type="text"
+                    class="form-control"
+                    placeholder="Buscar Sedes"
+                  />
+                  <span class="input-group-text pointer bg-principal">
+                    <i class="fas fa-search text-white"></i>
+                  </span>
+                </div>
+              </form>
+            </div>
+            <div class="table-responsive mt-1 scroll-container">
+              <table  style="text-align: center;" class="table table-sm table-bordered table-hover">
+                <thead class="table-dark">
+                  <tr>
+                    <th>Id</th>
+                    <th>Nombre</th>
+                    <th>Fecha Registro</th>
+                    <th>Estado</th>
+                    <th class="text-center">Acciones</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let item of sedesDeAcopio; let i = index">
+                    <td>{{ i }}</td>
+                    <td>{{ item.Nombre }}</td>
+                    <td>{{ item.fecha }}</td>
+                    <td>{{ item.estado }}</td>
+                    <td class="text-center">
+                      <button class="btn btn-sm btn-warning"   (click)="toggleCreateUserForm()" >
+                          <i class="fas fa-edit"></i> 
+                        </button>
+                        <div class="vr mx-1 p-0"></div>
+                        <button class="btn btn-sm btn-danger" >
+                          <i class="fas fa-ban"></i> 
+                        </button>
+                    </td>
+                  </tr>
+                  <tr *ngIf="sedesDeAcopio.length === 0">
+                    <td class="text-center" colspan="5">No hay Centros de Acopio</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  
+
+  <div
+  class="modal fade"
+  id="modalmypass"
+  data-bs-backdrop="static"
+  data-bs-keyboard="false"
+  tabindex="-1"
+  aria-labelledby="exampleModalCenterTitle"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-centered modal-xl">
+    <div class="modal-content">
+      <!-- Modal Header with Close Icon -->
+      <div class="modal-header">
+        <h5 class="modal-title">Crear Nuevo Registro</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="close()"></button>
+      </div>
+
+      <div class="modal-body">
+        <div class="col-md-12 pb-3">
+          <div class="row">
+            <!-- First Row: TipoSedeId and PaisId -->
+           
+            <div class="col-md-4">
+              <label for="nombre" class="form-label text-black">Nombre</label>
+              <div class="input-group mb-3">
+                <input type="text" class="form-control h-46" placeholder="Nombre" autocomplete="off" name="Nombre" id="nombre" />
+              </div>
+            </div>
+
+            <!-- Third Row: Descripcion and Nit -->
+            <div class="col-md-4">
+              <label for="descripcion" class="form-label text-black">Descripción</label>
+              <div class="input-group mb-3">
+                <input type="text" class="form-control h-46" placeholder="Descripción" autocomplete="off" name="Descripcion" id="descripcion" />
+              </div>
+            </div>
+          
+
+            <!-- Fourth Row: RazonSocial and Barrio -->
+            <div class="col-md-4">
+              <label for="razonSocial" class="form-label text-black">Razón Social</label>
+              <div class="input-group mb-3">
+                <input type="text" class="form-control h-46" placeholder="Razón Social" autocomplete="off" name="RazonSocial" id="razonSocial" />
+              </div>
+            </div>
+            <div class="col-md-4">
+              <label for="barrio" class="form-label text-black">Barrio</label>
+              <div class="input-group mb-3">
+                <input type="text" class="form-control h-46" placeholder="Barrio" autocomplete="off" name="Barrio" id="barrio" />
+              </div>
+            </div>
+
+            <!-- Fifth Row: Direccion and Latitud -->
+            <div class="col-md-4">
+              <label for="direccion" class="form-label text-black">Dirección</label>
+              <div class="input-group mb-3">
+                <input type="text" class="form-control h-46" placeholder="Dirección" autocomplete="off" name="Direccion" id="direccion" />
+              </div>
+            </div>
+            <div class="col-md-4">
+              <label for="latitud" class="form-label text-black">Latitud</label>
+              <div class="input-group mb-3">
+                <input type="text" class="form-control h-46" placeholder="Latitud" autocomplete="off" name="Latitud" id="latitud" />
+              </div>
+            </div>
+
+            <!-- Sixth Row: Longitud and NombreContacto -->
+            <div class="col-md-4">
+              <label for="longitud" class="form-label text-black">Longitud</label>
+              <div class="input-group mb-3">
+                <input type="text" class="form-control h-46" placeholder="Longitud" autocomplete="off" name="Longitud" id="longitud" />
+              </div>
+            </div>
+            <div class="col-md-4">
+              <label for="nombreContacto" class="form-label text-black">Nombre del Contacto</label>
+              <div class="input-group mb-3">
+                <input type="text" class="form-control h-46" placeholder="Nombre del Contacto" autocomplete="off" name="NombreContacto" id="nombreContacto" />
+              </div>
+            </div>
+
+            <!-- Seventh Row: EmailContacto and CelContacto -->
+            <div class="col-md-4">
+              <label for="emailContacto" class="form-label text-black">Email del Contacto</label>
+              <div class="input-group mb-3">
+                <input type="email" class="form-control h-46" placeholder="Email del Contacto" autocomplete="off" name="EmailContacto" id="emailContacto" />
+              </div>
+            </div>
+            <div class="col-md-4">
+              <label for="celContacto" class="form-label text-black">Celular del Contacto</label>
+              <div class="input-group mb-3">
+                <input type="text" class="form-control h-46" placeholder="Celular del Contacto" autocomplete="off" name="CelContacto" id="celContacto" />
+              </div>
+            </div>
+
+            <!-- Eighth Row: ReferenciaWLL and ReferenciaPH -->
+            <div class="col-md-4">
+              <label for="referenciaWLL" class="form-label text-black">Referencia WLL</label>
+              <div class="input-group mb-3">
+                <input type="text" class="form-control h-46" placeholder="Referencia WLL" autocomplete="off" name="ReferenciaWLL" id="referenciaWLL" />
+              </div>
+            </div>
+            <div class="col-md-4">
+              <label for="referenciaPH" class="form-label text-black">Referencia PH</label>
+              <div class="input-group mb-3">
+                <input type="text" class="form-control h-46" placeholder="Referencia PH" autocomplete="off" name="ReferenciaPH" id="referenciaPH" />
+              </div>
+            </div>
+            <div class="col-md-3">
+                <label for="tipoSedeId" class="form-label text-black">Tipo Sede</label>
+                <div class="input-group mb-3">
+                  <input type="number" class="form-control h-46" placeholder="Tipo Sede ID" autocomplete="off" name="TipoSedeId" id="tipoSedeId" />
+                </div>
+              </div>
+              <div class="col-md-3">
+                <label for="paisId" class="form-label text-black">País</label>
+                <div class="input-group mb-3">
+                  <input type="number" class="form-control h-46" placeholder="País ID" autocomplete="off" name="PaisId" id="paisId" />
+                </div>
+              </div>
+              <div class="col-md-3">
+                  <label for="nit" class="form-label text-black">NIT</label>
+                  <div class="input-group mb-3">
+                    <input type="text" class="form-control h-46" placeholder="NIT" autocomplete="off" name="Nit" id="nit" />
+                  </div>
+                </div>
+              <!-- Second Row: CiudadId and Nombre -->
+              <div class="col-md-3">
+                <label for="ciudadId" class="form-label text-black">Ciudad</label>
+                <div class="input-group mb-3">
+                  <input type="number" class="form-control h-46" placeholder="Ciudad ID" autocomplete="off" name="CiudadId" id="ciudadId" />
+                </div>
+              </div>
+          </div>
+        </div>
+        <div class="col-md-12 text-center">
+          <button class="btn btn-primary" type="submit">Guardar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+

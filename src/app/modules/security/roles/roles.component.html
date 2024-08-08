@@ -4,16 +4,8 @@
       <div class="card">
         <div class="card-header pt-3 pb-3 d-flex justify-content-between">
           <span class="card-title"><b>Roles</b></span>
-          <button
-            class="btn btn-sm btn-primary"
-            (click)="toggleCreateUserForm()"
-          >
-            <i
-              class="fas"
-              [class.fa-add]="!showForm"
-              [class.fa-arrow-left]="showForm"
-            ></i>
-            {{ showForm ? "Atrás" : "Crear Rol" }}
+          <button class="btn btn-sm btn-primary" (click)="createAndUpdte(null)">
+            Crear Rol
           </button>
         </div>
         <div class="card-body h-table">
@@ -32,34 +24,45 @@
             </form>
           </div>
           <div class="table-responsive mt-1 scroll-container">
-            <table  style="text-align: center;" class="table table-sm table-bordered table-hover">
+            <table
+              style="text-align: center"
+              class="table table-sm table-bordered table-hover"
+            >
               <thead class="table-dark">
                 <tr>
-                  <th>Id</th>
-                  <th>Rol</th>
-                  <th>Fecha Registro</th>
+                  <th>ID</th>
+                  <th>Nombre</th>
+                  <th>Descripción</th>
                   <th>Estado</th>
+                  <th>Fecha Creación</th>
+                  <th>Fecha Modificación</th>
                   <th class="text-center">Acciones</th>
                 </tr>
               </thead>
               <tbody>
-                <tr *ngFor="let item of roles; let i = index">
-                  <td>{{ i }}</td>
+                <tr *ngFor="let item of listData; let i = index">
+                  <td>{{ item.Id }}</td>
                   <td>{{ item.Nombre }}</td>
-                  <td>{{ item.fecha }}</td>
-                  <td>{{ item.estado }}</td>
+                  <td>{{ item.Descripcion }}</td>
+                  <td>{{ item.Estado ? "Activo" : "Inactivo" }}</td>
+                  <td>{{ item.FechaCreacion | date : "short" }}</td>
+                  <td>{{ item.FechaModificado | date : "short" }}</td>
                   <td class="text-center">
-                    <button class="btn btn-sm btn-warning" (click)="toggleCreateUserForm()" >
-                        <i class="fas fa-edit"></i> 
-                      </button>
-                      <div class="vr mx-1 p-0"></div>
-                      <button class="btn btn-sm btn-danger" >
-                        <i class="fas fa-ban"></i> 
-                      </button>
+                    modalshow
+                    <button
+                      class="btn btn-sm btn-warning"
+                      (click)="createAndUpdte(item)"
+                    >
+                      <i class="fas fa-edit"></i>
+                    </button>
+                    <div class="vr mx-1 p-0"></div>
+                    <button class="btn btn-sm btn-danger">
+                      <i class="fas fa-ban"></i>
+                    </button>
                   </td>
                 </tr>
-                <tr *ngIf="roles.length === 0">
-                  <td class="text-center" colspan="5">No hay Roles</td>
+                <tr *ngIf="listData.length === 0">
+                  <td class="text-center" colspan="7">No hay Roles</td>
                 </tr>
               </tbody>
             </table>
@@ -67,34 +70,74 @@
         </div>
       </div>
     </div>
-    <div class="col-md-4" *ngIf="showForm">
-      <div class="card">
-        <div class="card-header">
-          <span class="card-title"><b>Crear Rol</b></span>
-        </div>
-        <div class="card-body">
-          <form>
-            <div class="mb-3">
-              <label for="nombre" class="form-label">Nombre</label>
-              <input
-                type="text"
-                id="nombre"
-                class="form-control"
-                name="nombre"
-              />
-            </div>
-            <div class="mb-3">
-              <label for="descripcion" class="form-label">Descripción</label>
-              <input
-                type="text"
-                id="descripcion"
-                class="form-control"
-                name="descripcion"
-              />
-            </div>
+  </div>
+</div>
 
-            <button type="submit" class="btn btn-primary">Guardar</button>
-          </form>
+<div
+  class="modal fade"
+  id="modalmypass"
+  data-bs-backdrop="static"
+  data-bs-keyboard="false"
+  tabindex="-1"
+  aria-labelledby="exampleModalCenterTitle"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-centered modal-sm">
+    <div class="modal-content">
+      <!-- Modal Header with Close Icon -->
+      <div class="modal-header">
+        <h5 class="modal-title">Crear Nuevo Rol</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+          (click)="close()"
+        ></button>
+      </div>
+
+      <div class="modal-body">
+        <div class="row">
+          <!-- Nombre -->
+          <div class="col-md-12 mb-3">
+            <label for="nombre" class="form-label text-black">Nombre</label>
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Nombre del Rol"
+              autocomplete="off"
+              name="Nombre"
+              id="nombre"
+              [(ngModel)]="role.Nombre"
+              required
+            />
+          </div>
+
+          <!-- Descripción -->
+          <div class="col-md-12 mb-3">
+            <label for="descripcion" class="form-label text-black"
+              >Descripción</label
+            >
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Descripción del Rol"
+              autocomplete="off"
+              name="Descripcion"
+              id="descripcion"
+              [(ngModel)]="role.Descripcion"
+              required
+            />
+          </div>
+        </div>
+        <div class="text-center">
+          <button
+            class="btn btn-primary"
+            type="button"
+          
+          >
+            Guardar
+          </button>
         </div>
       </div>
     </div>

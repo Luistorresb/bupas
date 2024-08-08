@@ -25,8 +25,8 @@ export class Auth0Service {
   private _auth0HeadersByFile$: HttpHeaders | null = null;
 
   constructor(private auth: AuthService) {
-    this.getUserDetails();
-    this.initializeAccessToken();
+    // this.getUserDetails();
+    // this.initializeAccessToken();
   }
 
   // Getter para user$

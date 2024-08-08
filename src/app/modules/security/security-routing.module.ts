@@ -18,6 +18,13 @@ const routes: Routes = [
 				({ UsersModule }) => UsersModule,
 			),
 	},
+	{
+		path: 'request',
+		loadChildren: () =>
+			import('./request-logs/request-logs.module').then(
+				({ RequestLogsModule }) => RequestLogsModule,
+			),
+	},
 ];
 
 @NgModule({

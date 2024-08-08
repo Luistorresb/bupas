@@ -40,7 +40,7 @@ export const environment = {
     username: 'sistemas',
     password: 'willard1505',
   },
-  api: 'http://localhost:8000/api/v1/',
+  api: 'https://willard-backend.onrender.com',
 };
 
 /*

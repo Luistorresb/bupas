@@ -1,0 +1,168 @@
+<div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header pt-3 pb-3 d-flex justify-content-between">
+            <span class="card-title"><b>Transportador</b></span>
+            <button
+              class="btn btn-sm btn-primary"
+              (click)="toggleCreateUserForm()"
+            >
+              <i
+                class="fas"
+        
+              ></i>
+              Crear
+            </button>
+          </div>
+          <div class="card-body h-table">
+            <div class="col-md-12 d-flex justify-content-end w-100">
+              <form>
+                <div class="input-group">
+                  <input
+                    type="text"
+                    class="form-control"
+                    placeholder="Buscar Transportador"
+                  />
+                  <span class="input-group-text pointer bg-principal">
+                    <i class="fas fa-search text-white"></i>
+                  </span>
+                </div>
+              </form>
+            </div>
+            <div class="table-responsive mt-1 scroll-container">
+              <table  style="text-align: center;" class="table table-sm table-bordered table-hover">
+                <thead class="table-dark">
+                  <tr>
+                    <th>Id</th>
+                    <th>Nombre</th>
+                    <th>Fecha Registro</th>
+                    <th>Estado</th>
+                    <th class="text-center">Acciones</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let item of sedesDeAcopio; let i = index">
+                    <td>{{ i }}</td>
+                    <td>{{ item.Nombre }}</td>
+                    <td>{{ item.fecha }}</td>
+                    <td>{{ item.estado }}</td>
+                    <td class="text-center">
+                      <button class="btn btn-sm btn-warning"   (click)="toggleCreateUserForm()" >
+                          <i class="fas fa-edit"></i> 
+                        </button>
+                        <div class="vr mx-1 p-0"></div>
+                        <button class="btn btn-sm btn-danger" >
+                          <i class="fas fa-ban"></i> 
+                        </button>
+                    </td>
+                  </tr>
+                  <tr *ngIf="sedesDeAcopio.length === 0">
+                    <td class="text-center" colspan="5">No hay Transportador</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  
+  <div
+  class="modal fade"
+  id="modalmypass"
+  data-bs-backdrop="static"
+  data-bs-keyboard="false"
+  tabindex="-1"
+  aria-labelledby="exampleModalCenterTitle"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content">
+      <!-- Modal Header with Close Icon -->
+      <div class="modal-header">
+        <h5 class="modal-title">Crear Nuevo Registro</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="close()"></button>
+      </div>
+
+      <div class="modal-body">
+        <div class="col-md-12 pb-3">
+          <div class="row">
+            <!-- First Row: Nombre -->
+            <div class="col-md-6">
+              <label for="nombre" class="form-label text-black">Nombre</label>
+              <div class="input-group mb-3">
+                <input type="text" class="form-control h-46" placeholder="Nombre" autocomplete="off" name="Nombre" id="nombre" />
+              </div>
+            </div>
+
+            <!-- Second Row: Nit -->
+            <div class="col-md-6">
+              <label for="nit" class="form-label text-black">NIT</label>
+              <div class="input-group mb-3">
+                <input type="text" class="form-control h-46" placeholder="NIT" autocomplete="off" name="Nit" id="nit" />
+              </div>
+            </div>
+
+            <!-- Third Row: RazonSocial -->
+            <div class="col-md-6">
+              <label for="razonSocial" class="form-label text-black">Razón Social</label>
+              <div class="input-group mb-3">
+                <input type="text" class="form-control h-46" placeholder="Razón Social" autocomplete="off" name="RazonSocial" id="razonSocial" />
+              </div>
+            </div>
+
+            <!-- Fourth Row: Descripcion -->
+            <div class="col-md-6">
+              <label for="descripcion" class="form-label text-black">Descripción</label>
+              <div class="input-group mb-3">
+                <input type="text" class="form-control h-46" placeholder="Descripción" autocomplete="off" name="Descripcion" id="descripcion" />
+              </div>
+            </div>
+
+            <!-- Fifth Row: NombreContacto -->
+            <div class="col-md-6">
+              <label for="nombreContacto" class="form-label text-black">Nombre del Contacto</label>
+              <div class="input-group mb-3">
+                <input type="text" class="form-control h-46" placeholder="Nombre del Contacto" autocomplete="off" name="NombreContacto" id="nombreContacto" />
+              </div>
+            </div>
+
+            <!-- Sixth Row: EmailContacto -->
+            <div class="col-md-6">
+              <label for="emailContacto" class="form-label text-black">Email del Contacto</label>
+              <div class="input-group mb-3">
+                <input type="email" class="form-control h-46" placeholder="Email del Contacto" autocomplete="off" name="EmailContacto" id="emailContacto" />
+              </div>
+            </div>
+
+            <!-- Seventh Row: ReferenciaWLL -->
+            <div class="col-md-6">
+              <label for="referenciaWLL" class="form-label text-black">Referencia WLL</label>
+              <div class="input-group mb-3">
+                <input type="text" class="form-control h-46" placeholder="Referencia WLL" autocomplete="off" name="ReferenciaWLL" id="referenciaWLL" />
+              </div>
+            </div>
+
+            <!-- Eighth Row: ReferenciaPH -->
+            <div class="col-md-6">
+              <label for="referenciaPH" class="form-label text-black">Referencia PH</label>
+              <div class="input-group mb-3">
+                <input type="text" class="form-control h-46" placeholder="Referencia PH" autocomplete="off" name="ReferenciaPH" id="referenciaPH" />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-12 text-center">
+          <button class="btn btn-primary" type="submit">Guardar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+

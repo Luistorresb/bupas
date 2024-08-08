@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { ApiService } from '../api/api.service';
 @Injectable({
   providedIn: 'root'
@@ -11,15 +11,15 @@ export class RolesService {
   allRoles(): Observable<any> {
 		return this._api.get('/roles');
 	}
+   // Método para crear un nuevo rol
+   createRol(rol: { Nombre: string; Descripcion: string }): Observable<any> {
+    return this._api.post('/roles', rol);
+  }
 
-  createRol(): Observable<any> {
-		return this._api.post('/roles');
-	}
-  listRolesId(id: any): Observable<any> {
+	listRolesId(id: any): Observable<any> {
 		return this._api.get(`/roles/${id}`);
-	}
-
-  updateRol(id: any): Observable<any> {
-		return this._api.put(`/roles/${id}`);
+	  }
+  updateRol(id: any, content: any): Observable<any> {
+		return this._api.put(`/roles/${id}`, content);
 	}
 }
