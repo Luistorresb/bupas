@@ -1,4 +1,4 @@
-import { HttpErrorResponse } from '@angular/common/http';
+import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { RolesService } from 'src/app/core/services/roles/roles.service';
 import { Observable, Subject, forkJoin, fromEvent } from 'rxjs';
@@ -13,6 +13,7 @@ export class RolesComponent implements OnInit {
   actionModal: string = '';
   showForm = false;
   role = {
+    Id: null,
     Nombre: '',
     Descripcion: '',
   };
@@ -35,10 +36,19 @@ export class RolesComponent implements OnInit {
     });
   }
 
+  clearDta(){
+    this.role = {
+      Id: null,
+      Nombre: '',
+      Descripcion: '',
+    };
+  }
   createAndUpdte(item: any | null) {
+    this.clearDta();
     $('#modalmypass').modal('show');
     if (item != null) {
       this.role = {
+        Id: item.Id,
         Nombre: item.Nombre,
         Descripcion: item.Descripcion,
       };
@@ -49,14 +59,16 @@ export class RolesComponent implements OnInit {
     $('#modalmypass').modal('hide');
   }
 
-  manageRole(action: 'create' | 'update', id?: string): void {
-    console.log(action);
-
+  manageRole(): void {
+    console.log(this.role);
     // Verifica que los campos no estén vacíos
     if (this.role.Nombre.trim() && this.role.Descripcion.trim()) {
-      if (action === 'create') {
+      if (this.role.Id === null) {
         // Llamada al servicio para crear un nuevo rol
-        this._rolesService.createRol(this.role).subscribe({
+        this._rolesService.createRol({
+          Nombre: this.role.Nombre,
+          Descripcion: this.role.Descripcion,
+        }).subscribe({
           next: (response) => {
             console.log('Rol creado exitosamente:', response);
             this.close();
@@ -65,17 +77,17 @@ export class RolesComponent implements OnInit {
             console.error('Error al crear rol:', error);
           },
         });
-      } else if (action === 'update' && id) {
+      } else if (this.role.Id !== null) {
         // Llamada al servicio para actualizar un rol existente
-        this._rolesService.updateRol(id, this.role).subscribe({
-          next: (response) => {
-            console.log('Rol actualizado exitosamente:', response);
-            this.close();
-          },
-          error: (error) => {
-            console.error('Error al actualizar rol:', error);
-          },
+        this._rolesService.updateRol(this.role.Id, {
+          Nombre: this.role.Nombre,
+          Descripcion: this.role.Descripcion,
+        }).subscribe(x=>{
+          console.log(x);
+          this.close();
         });
+        
+        
       }
     } else {
       // Muestra un mensaje de error si los campos están vacíos

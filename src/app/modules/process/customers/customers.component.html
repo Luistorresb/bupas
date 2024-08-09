@@ -30,39 +30,41 @@
                 </div>
               </form>
             </div>
-            <div class="table-responsive mt-1 scroll-container">
-              <table  style="text-align: center;" class="table table-sm table-bordered table-hover">
-                <thead class="table-dark">
-                  <tr>
-                    <th>Id</th>
-                    <th>Nombre</th>
-                    <th>Fecha Registro</th>
-                    <th>Estado</th>
-                    <th class="text-center">Acciones</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr *ngFor="let item of clientes; let i = index">
-                    <td>{{ i }}</td>
-                    <td>{{ item.Nombre }}</td>
-                    <td>{{ item.fecha }}</td>
-                    <td>{{ item.estado }}</td>
-                    <td class="text-center">
-                      <button class="btn btn-sm btn-warning"   (click)="toggleCreateUserForm()" >
-                          <i class="fas fa-edit"></i> 
-                        </button>
-                        <div class="vr mx-1 p-0"></div>
-                        <button class="btn btn-sm btn-danger" >
-                          <i class="fas fa-ban"></i> 
-                        </button>
-                    </td>
-                  </tr>
-                  <tr *ngIf="clientes.length === 0">
-                    <td class="text-center" colspan="5">No hay clientes</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
+            <table style="text-align: center;" class="table table-sm table-bordered table-hover">
+              <thead class="table-dark">
+                <tr>
+                  <th>Id</th>
+                  <th>Nombre</th>
+                  <th>Fecha Registro</th>
+                  <th>Estado</th>
+                  <th>Razón Social</th>
+                  <th class="text-center">Acciones</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let item of listData">
+                  <td>{{ item.Id }}</td>
+                  <td>{{ item.Nombre }}</td>
+                  <td>{{ item.FechaCreacion | date:'yyyy-MM-dd HH:mm:ss' }}</td>
+                  <td>{{ item.Estado ? 'Activo' : 'Inactivo' }}</td>
+                  <td>{{ item.RazonSocial }}</td>
+                  <td class="text-center">
+                    <button class="btn btn-sm btn-warning" >
+                      <i class="fas fa-edit"></i> 
+                    </button>
+                    <div class="vr mx-1 p-0"></div>
+                    <button class="btn btn-sm btn-danger" >
+                      <i class="fas fa-ban"></i> 
+                    </button>
+                  </td>
+                </tr>
+                <tr *ngIf="listData.length === 0">
+                  <td class="text-center" colspan="6">No hay clientes</td>
+                </tr>
+              </tbody>
+            </table>
+            
+            
           </div>
         </div>
       </div>

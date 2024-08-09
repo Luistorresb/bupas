@@ -13,14 +13,14 @@ export class UsersService {
 		return this._api.get('/users');
 	}
 
-  createUser(): Observable<any> {
-		return this._api.post('/users');
+  createUser(content: any): Observable<any> {
+		return this._api.post('/users', content);
 	}
   listUserId(id: any): Observable<any> {
 		return this._api.get(`/users/${id}`);
 	}
 
-  updateUser(id: any): Observable<any> {
-		return this._api.put(`/users/${id}`);
+  updateUser(id: any, content: any): Observable<any> {
+		return this._api.put(`/users/${id}`, content);
 	}
 }

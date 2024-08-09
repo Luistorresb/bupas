@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { forkJoin } from 'rxjs';
+import { CustomersService } from 'src/app/core/services/procees/customers.service';
 declare var $: any;
 @Component({
   selector: 'wlrd-customers',
@@ -45,7 +47,27 @@ export class CustomersComponent {
       estado: 'Activo',
     },
   ];
+  listData: any = [];
+  constructor(private _Service: CustomersService) {}
 
+  ngOnInit(): void {
+    this.selectData();
+  }
+
+  selectData(): void {
+    forkJoin({
+      clientes: this._Service.getClients()
+    }).subscribe({
+      next: (data: any) => {
+        // Verifica la estructura del objeto recibido
+        console.log('Datos recibidos:', data);
+        this.listData = data.clientes.items; // Asegúrate de que 'items' esté en 'clientes'
+      },
+      error: (error: any) => {
+        console.error('Error al obtener datos:', error);
+      }
+    });
+  }
   addUser() {
     this.actionModal = 'Crear';
     this.dataUser = {
@@ -78,10 +100,9 @@ export class CustomersComponent {
   }
 
   toggleCreateUserForm() {
-    $("#modalmypass").modal('show');
-
+    $('#modalmypass').modal('show');
   }
-  close(){
-    $("#modalmypass").modal('hide');
+  close() {
+    $('#modalmypass').modal('hide');
   }
 }

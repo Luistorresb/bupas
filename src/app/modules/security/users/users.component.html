@@ -4,7 +4,7 @@
         <div class="card">
           <div class="card-header pt-3 pb-3 d-flex justify-content-between">
             <span class="card-title"><b>Usuarios</b></span>
-            <button class="btn btn-sm btn-primary" (click)="toggleCreateUserForm()">
+            <button class="btn btn-sm btn-primary" (click)="createAndUpdate(null)">
                 <i class="fas" [class.fa-add]="!showForm" [class.fa-arrow-left]="showForm"></i>
                 {{ showForm ? 'Atrás' : 'Crear Usuario' }}
               </button>
@@ -38,7 +38,7 @@
                     <td>{{ item.Descripcion }}</td>
                     <td>{{ item.Email }}</td>
                     <td class="text-center">
-                        <button class="btn btn-sm btn-warning" (click)="toggleCreateUserForm()" >
+                        <button class="btn btn-sm btn-warning" (click)="createAndUpdate(item)" >
                             <i class="fas fa-edit"></i> 
                           </button>
                           <div class="vr mx-1 p-0"></div>
@@ -65,25 +65,34 @@
             <form >
               <div class="mb-3">
                 <label for="id" class="form-label">ID</label>
-                <input type="text" id="id" class="form-control"  name="id">
+                <input type="text" id="id" class="form-control" name="id" [(ngModel)]="user.Authid">
               </div>
               <div class="mb-3">
                 <label for="nombre" class="form-label">Nombre</label>
-                <input type="text" id="nombre" class="form-control"  name="nombre">
+                <input type="text" id="nombre" class="form-control" name="nombre" [(ngModel)]="user.Nombre">
               </div>
               <div class="mb-3">
                 <label for="descripcion" class="form-label">Descripción</label>
-                <input type="text" id="descripcion" class="form-control"  name="descripcion">
+                <input type="text" id="descripcion" class="form-control" name="descripcion" [(ngModel)]="user.Descripcion">
               </div>
               <div class="mb-3">
                 <label for="email" class="form-label">Email</label>
-                <input type="email" id="email" class="form-control"  name="email">
+                <input type="email" id="email" class="form-control" name="email" [(ngModel)]="user.Email">
               </div>
-              <button type="submit" class="btn btn-primary">Guardar</button>
+
+              <!-- <div class="mb-3">
+                <label for="rol" class="form-label">Rol</label>
+                <select id="rol" class="form-select" [(ngModel)]="user.Rol" name="rol">
+                  <option *ngFor="let rol of listData" [value]="rol.Id">{{ rol.Nombre }}</option>
+                </select>
+              </div> -->
+              
+              <button type="submit" class="btn btn-primary" (click)="manageUser()">Guardar</button>
             </form>
           </div>
         </div>
       </div>
+      
     </div>
   </div>
   

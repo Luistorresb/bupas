@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { forkJoin } from 'rxjs';
+import { RequestService } from 'src/app/core/services/security/request.service';
 
 @Component({
   selector: 'wlrd-request-logs',
@@ -64,11 +66,26 @@ export class RequestLogsComponent {
     FechaInicio: '',
     FechaFin: ''
   };
+  listData: any = [];
+  constructor(
+    private _Service: RequestService,
+  ) {}
 
- 
-
-  getNotifications() {
-    // Logic to retrieve notifications
+  ngOnInit(): void {
+    this.selectData();
+  }
+  selectData(): void {
+    forkJoin({
+      users: this._Service.getAudits(),
+    }).subscribe({
+      next: (data: any ) => {
+        this.listData = data.items;
+        console.log(this.listData);
+      },
+      error: (error: any) => {
+        console.error('Error al obtener datos:', error);
+      },
+    });
   }
 
   sumCantProcess() {

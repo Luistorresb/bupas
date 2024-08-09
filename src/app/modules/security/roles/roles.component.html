@@ -48,17 +48,13 @@
                   <td>{{ item.FechaCreacion | date : "short" }}</td>
                   <td>{{ item.FechaModificado | date : "short" }}</td>
                   <td class="text-center">
-                    modalshow
                     <button
                       class="btn btn-sm btn-warning"
                       (click)="createAndUpdte(item)"
                     >
                       <i class="fas fa-edit"></i>
                     </button>
-                    <div class="vr mx-1 p-0"></div>
-                    <button class="btn btn-sm btn-danger">
-                      <i class="fas fa-ban"></i>
-                    </button>
+                 
                   </td>
                 </tr>
                 <tr *ngIf="listData.length === 0">
@@ -134,7 +130,7 @@
           <button
             class="btn btn-primary"
             type="button"
-          
+          (click)="manageRole()"
           >
             Guardar
           </button>
